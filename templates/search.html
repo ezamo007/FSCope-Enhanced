@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enrollments and Services</title>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1>Search</h1>
+      <form action="/results" method="POST">
+        <div class="search-form">
+          <div id = "search-rows">
+            <div class="row search-row">
+              <div class="input-field col s3">
+                <select name="search-field">
+                  <option value="enrollment.program_name">Program Name</option>
+                  <option value="service.service_name">Service Name</option>
+                  <option value="client.client_name">Client Name</option>
+                  <option value="service.service_amount">Service Amount</option>
+                  <option value="enrolment.entry_date">Program Entry Date</option>
+                  <option value="enrollment.exit_date">Program Exit Date</option>
+                </select>
+              </div>
+              <div class="input-field col s4">
+                <select name="search-operator">
+                  <option value="=">=</option>
+                  <option value=">">&gt;</option>
+                  <option value="<">&lt;</option>
+                  <option value="!=">&ne;</option>
+                  <option value="like">Includes</option>
+                  <option value="not-like">Does not Include</option>
+                </select>
+              </div>
+              <div class="input-field col s3">
+                <input type="text" name="search-value">
+              </div>
+              <div class="input-field col s2">
+                <select name="search-logic">
+                  <option value="AND">AND</option>
+                  <option value="OR">OR</option>
+                  <option value="" selected></option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+
+          <div id="column-checkboxes">
+            <h2>Select columns to display</h2>
+            <i><h4>(Work in Progress):</h4></i>
+            
+            <div class="row">
+              <div class="col s4">
+                <h4>Enrollment</h4>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="enrollment.program_name" />
+                        <span>Program Name</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="enrollment.entry_date" />
+                        <span>Program Entry Date</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="enrollment.exit_date" />
+                        <span>Program Exit Date</span>
+                    </label>
+                </p>
+              </div>
+            
+              <div class="col s4">
+                <h4>Service</h4>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="service.service_name" />
+                        <span>Service Name</span>
+                    </label>
+                </p>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="service.service_amount" />
+                        <span>Service Amount</span>
+                    </label>
+                </p>
+                <!-- Add more checkboxes as needed -->
+              </div>
+          
+              <div class="col s4">
+                <h4>Client</h4>
+                <p>
+                    <label>
+                        <input type="checkbox" class="filled-in service-checkbox" name="columns" value="client.client_name" />
+                        <span>Client Name</span>
+                    </label>
+                </p>
+                <!-- Add more checkboxes as needed -->
+              </div>
+            </div>
+          
+          </div>
+          
+        
+
+
+          <div class="col s2" id="submitButton">
+            <button class="btn waves-effect waves-light" type="submit" name="search-submit">Search
+            </button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <!-- Materialize JS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+      // Initialize Materialize select dropdowns
+    document.addEventListener('DOMContentLoaded', function() {
+      var selects = document.querySelectorAll('select');
+      M.FormSelect.init(selects);
+    })
+
+  var searchLogic = document.getElementsByName("search-logic")[0];
+  searchLogic.addEventListener("change", function() {
+    if(searchLogic.value != ""){addNewRow();}
+  })
+
+function addNewRow(){
+  var newRow = document.createElement('div');
+  newRow.classList.add('row', 'search-row');
+  newRow.innerHTML = `
+    <div class="input-field col s3">
+      <select name="search-field">
+        <option value="enrollment.program_name">Program Name</option>
+        <option value="service.service_name">Service Name</option>
+        <option value="client.client_name">Client Name</option>
+        <option value="service.service_amount">Service Amount</option>
+        <option value="enrollment.entry_date">Program Entry Date</option>
+        <option value="enrollment.exit_date">Program Exit Date</option>
+      </select>
+    </div>
+    <div class="input-field col s4">
+      <select name="search-operator">
+        <option value="=">=</option>
+        <option value=">">&gt;</option>
+        <option value="<">&lt;</option>
+        <option value="!=">&ne;</option>
+        <option value="like">Includes</option>
+        <option value="not-like">Does not Include</option>
+      </select>
+    </div>
+    <div class="input-field col s3">
+      <input type="text" name="search-value">
+    </div>
+    <div class="input-field col s2">
+      <select name="search-logic">
+        <option value="AND">AND</option>
+        <option value="OR">OR</option>
+        <option value="DELETE">DELETE</option>
+        <option value="" selected></option>
+      </select>
+    </div>
+  `;
+  document.querySelector("#search-rows").appendChild(newRow);
+  M.FormSelect.init(newRow.querySelectorAll('select'));
+  newRow.addEventListener("change", function() {
+    var searchLogic = newRow.querySelector('[name="search-logic"]');
+    if(searchLogic.value == "DELETE"){
+      searchLogic.parentNode.parentNode.parentNode.remove()
+    }else if(searchLogic.value != ""){
+      addNewRow();
+    }
+  })
+}
+
+
+
+    // Function to check if any search-field select includes "service"
+    function checkServiceFields() {
+        var searchFields = document.getElementsByName("search-field");
+        for (var i = 0; i < searchFields.length; i++) {
+            if (searchFields[i].value.includes("service")) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    // Event listener for changes to search-field selects
+    document.querySelectorAll('select[name="search-field"]').forEach(function(el) {
+        el.addEventListener('change', function() {
+            // Enable or disable the service checkboxes based on whether any search-field includes "service"
+            var serviceCheckboxes = document.querySelectorAll('.service-checkbox');
+            if (checkServiceFields()) {
+                serviceCheckboxes.forEach(function(checkbox) {
+                    checkbox.disabled = false;
+                });
+            } else {
+                serviceCheckboxes.forEach(function(checkbox) {
+                    checkbox.disabled = true;
+                    checkbox.checked = false;
+                });
+            }
+        });
+    });
+
+
+
+    </script>
+  </body>
+</html>

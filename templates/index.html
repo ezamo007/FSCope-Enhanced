@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Enrollments and Services</title>
+    <!-- Materialize CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+  </head>
+  <body>
+    <div class="container">
+      <h1><a href="/search">Search.</a></h1>
+      <h1>Enrollments</h1>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Client ID</th>
+            <th>Program Name</th>
+            <th>Entry Date</th>
+            <th>Exit Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for enrollment in enrollments %}
+          <tr>
+            <td>{{ enrollment.client_id }}</td>
+            <td>{{ enrollment.program_name }}</td>
+            <td>{{ enrollment.entry_date.strftime('%m/%d/%Y') }}</td>
+            {% if enrollment.exit_date %}
+            <td>{{ enrollment.exit_date.strftime('%m/%d/%Y') }}</td>
+            {% else %}
+            <td></td>
+            {% endif %}
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h1>Services</h1>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Service Name</th>
+            <th>Service Amount</th>
+            <th>Start Date</th>
+            <th>End Date</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for service in services %}
+          <tr>
+            <td>{{ service.service_name }}</td>
+            <td>{{ service.service_amount }}</td>
+            <td>{{ service.start_date.strftime('%m/%d/%Y') }}</td>
+            <td>{{ service.end_date.strftime('%m/%d/%Y') }}</td>         
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      <h1>Clients</h1>
+      <table class="striped">
+        <thead>
+          <tr>
+            <th>Client Name</th>
+            <th>Household ID</th>
+            <th>Client ID</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for client in clients %}
+          <tr>
+            <td>{{ client.client_name }}</td>
+            <td>{{ client.household_id }}</td>
+            <td>{{ client.client_id }}</td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </body>
+</html>

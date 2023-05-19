@@ -1,0 +1,23 @@
+Household ID,Client ID,Enrollment ID,Client Name,HoH,Program Name,Entry Date,Exit Date
+234567,5E3A8D1F6,829176,Esmeralda Thunderthighs,Yes,Housing Navigation,2022-07-10,
+234567,5E3A8D1F6,758900,Esmeralda Thunderthighs,Yes,Homelessness Prevention,2022-07-10,
+234567,5E3A8D1F6,604985,Esmeralda Thunderthighs,Yes,Crisis Housing Vouchers,2022-07-10,
+234567,A7C4D9E2B,308562,Reginald Thunderthighs,No,Housing Navigation,2022-07-10,
+234567,A7C4D9E2B,582471,Reginald Thunderthighs,No,Crisis Housing Vouchers,2022-07-10,
+456789,1A8D7F2B9,547389,Penelope Pumpernickel,Yes,Housing Navigation,2022-05-17,
+456789,1A8D7F2B9,913827,Penelope Pumpernickel,Yes,Crisis Housing Vouchers,2022-05-17,2023-01-29
+456789,1A8D7F2B9,47892,Penelope Pumpernickel,Yes,Time-Limited Subsidies,2023-01-29,
+456789,3C6D5F8A1,874693,Rufus Bumblebee,No,Housing Navigation,2022-05-17,
+456789,3C6D5F8A1,250148,Rufus Bumblebee,No,Crisis Housing Vouchers,2022-05-17,2023-01-29
+456789,3C6D5F8A1,257211,Rufus Bumblebee,No,Time-Limited Subsidies,2023-01-29,
+901234,9C4B5A2D8,503276,Archibald Flapjack,Yes,Housing Navigation,2022-08-04,2022-10-05
+901234,9C4B5A2D8,287561,Archibald Flapjack,Yes,Crisis Housing Shelter,2022-08-04,2022-10-05
+901234,7F2B9E1A8,691534,Henrietta Flapjack,No,Housing Navigation,2022-08-04,2022-11-12
+901234,7F2B9E1A8,415926,Henrietta Flapjack,No,Crisis Housing Shelter,2022-08-04,2022-11-12
+901234,B2A7C4D9E,198673,Ophelia Flapjack,No,Housing Navigation,2022-08-04,
+901234,B2A7C4D9E,749806,Ophelia Flapjack,No,Crisis Housing Shelter,2022-08-04,
+901234,5F8A1C6D3,935627,Percival Poppycock,No,Housing Navigation,2022-08-02,
+901234,5F8A1C6D3,176983,Percival Poppycock,No,Crisis Housing Shelter,2022-08-02,
+345678,8D1F6E3A5,197345,Seraphina Moonstone,Yes,Housing Navigation,2022-10-01,
+345678,2D9C4B5A7,381569,Ignatius Snorklefart,No,Housing Navigation,2022-10-01,
+345678,2D9C4B5A7,467098,Ignatius Snorklefart,No,Crisis Housing Vouchers,2022-10-01,
