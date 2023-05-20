@@ -1,0 +1,70 @@
+/* Custom styles for search form */
+.container {
+    margin-top: 50px;
+  }
+  
+  h1 {
+    text-align: center;
+  }
+  
+  .search-form {
+    margin-bottom: 30px;
+  }
+  
+  .search-row {
+    margin-bottom: 10px;
+  }
+  
+  #column-checkboxes {
+    margin-top: 30px;
+  }
+  
+  #submitButton {
+    text-align: center;
+    margin-top: 30px;
+  }
+  
+  /* Adjust styles for Materialize select dropdowns */
+  .select-wrapper input.select-dropdown {
+    margin-bottom: 0;
+    border-radius: 3px;
+  }
+  
+  .select-wrapper span.caret {
+    right: 10px;
+  }
+  
+  .select-wrapper {
+    margin-bottom: 10px;
+  }
+  
+  /* Adjust checkbox styles */
+  [type="checkbox"]:not(.filled-in) + span:not(.lever):before {
+    top: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  [type="checkbox"]:not(.filled-in) + span:not(.lever):after {
+    top: 0.2rem;
+    width: 1.2rem;
+    height: 1.2rem;
+  }
+  
+  /* Adjust button styles */
+  button.btn {
+    width: 100%;
+  }
+  
+  /* Responsive styles */
+  @media (max-width: 600px) {
+    .input-field.col.s3,
+    .input-field.col.s4 {
+      width: 100%;
+    }
+  
+    #submitButton {
+      text-align: left;
+    }
+  }
+  

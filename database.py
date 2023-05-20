@@ -73,8 +73,8 @@ def init_db(app):
             reader = csv.DictReader(f)
             data = [row for row in reader]
         for row in data:
-            existing_enrollment = Enrollment.query.filter_by(enrollment_id=row['Enrollment ID']).first()
-            if existing_enrollment:
+            existing_service = Service.query.filter_by(service_id=row['Service ID']).first()
+            if existing_service:
                 continue
             start_date = datetime.strptime(row['Start Date'], '%Y-%m-%d').date()
             end_date = datetime.strptime(row['End Date'], '%Y-%m-%d').date()

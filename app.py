@@ -1,21 +1,20 @@
+from jinja2 import Environment
 from flask import Flask, render_template, request
 from flask_material import Material
 from database import db, init_db, Household, Client, Enrollment, Service
 from sqlalchemy import create_engine, or_, and_, inspect
-from sqlalchemy.orm import sessionmaker, joinedload
-app = Flask(__name__)
+from sqlalchemy.orm import sessionmaker
+app = Flask(__name__, static_folder='static')
 Material(app)
 
 
-from jinja2 import Environment
 def get_attr(obj, attr):
     return getattr(obj, attr)
+
 
 env = Environment()
 
 env.filters['get_attr'] = get_attr
-
-
 
 # Set the app configuration
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
@@ -31,18 +30,22 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Define the app routes
+
+
 @app.route('/')
 def index():
     enrollments = Enrollment.query.all()
     services = Service.query.all()
     clients = Client.query.all()
 
-    return render_template('index.html', enrollments=enrollments, services=services, clients = clients)
+    return render_template('index.html', enrollments=enrollments, services=services, clients=clients)
+
 
 @app.route('/search', methods=['GET', 'POST'])
 def search():
     return render_template('search.html')
-from sqlalchemy.orm import aliased
+
+
 @app.route('/results', methods=['POST'])
 def search_results():
     # Get form data from request
@@ -50,20 +53,18 @@ def search_results():
     search_operators = request.form.getlist('search-operator')
     search_values = request.form.getlist('search-value')
     search_logics = request.form.getlist('search-logic')
-
+    columns = request.form.getlist('columns')
     # Build SQLAlchemy query dynamically based on form data
-    print(search_fields)
-    hasClient, hasEnrollment, hasService = False, False, False
-    for search_field in search_fields:
-        if "client" in search_field:
-            hasClient = True
-        elif "enrollment" in search_field:
-            hasEnrollment = True
-        elif "service" in search_field:
-            hasService=True
+    print(f"Search fields: {search_fields}")
+    print(f"Columns requested: {columns}")
+    
+    hasClient = any("Client" in column for column in columns)
+    hasEnrollment = any("Enrollment" in column for column in columns)
+    hasService = any("Service" in column for column in columns)
 
     # Start with the Household table
     query = db.session.query(Household)
+    print(f"Service Table: {Service}")
 
     # Include all columns from the tables involved in the query
     if hasClient or hasEnrollment or hasService:
@@ -75,30 +76,52 @@ def search_results():
 
     # Join the tables based on the foreign keys
     if hasClient or hasEnrollment or hasService:
-        query = query.join(Client, Household.household_id == Client.household_id)
+        query = query.join(Client, Household.household_id ==
+                           Client.household_id)
 
     if hasEnrollment or hasService:
-        query = query.join(Enrollment, Client.client_id == Enrollment.client_id)
+        query = query.join(Enrollment, Client.client_id ==
+                           Enrollment.client_id)
 
     if hasService:
-        query = query.join(Service, Enrollment.enrollment_id == Service.enrollment_id)
+        query = query.join(
+            Service, Enrollment.enrollment_id == Service.enrollment_id)
 
+    # Create a mapping of strings to class attributes:
+    attr_map = {
+        'Enrollment.enrollment_id': Enrollment.enrollment_id,
+        'Enrollment.program_name': Enrollment.program_name,  
+        'Enrollment.entry_date': Enrollment.entry_date,  
+        'Enrollment.exit_date': Enrollment.exit_date,  
+        'Client.client_name': Client.client_name,
+        'Client.client_id': Client.client_id,
+        'Service.service_name': Service.service_name,
+        'Service.start_date': Service.start_date,
+        'Service.end_date': Service.end_date,
+        'Service.service_amount': Service.service_amount,
+    }
+
+    # Convert your list of strings to a list of attributes:
+    attr_list = [attr_map[attr] for attr in columns]
+
+    # # Now use this list in your query:
+    query = query.with_entities(*attr_list) 
+
+    
     criteria = []
 
     for i in range(len(search_fields)):
         objectName, field = search_fields[i].split(".")
         operator = search_operators[i]
         value = search_values[i]
-        logic = search_logics[i]
 
         object_map = {
-            'household': Household,
-            'enrollment': Enrollment,
-            'service': Service,
-            'client': Client
+            'Household': Household,
+            'Enrollment': Enrollment,
+            'Service': Service,
+            'Client': Client
         }
         obj = object_map[objectName]
-
 
         # Handle different operators
         if operator == "=":
@@ -115,42 +138,33 @@ def search_results():
             criterion = ~getattr(obj, field).like(f"%{value}%")
 
         criteria.append(criterion)
-    print("\n\n\n\n",criteria,"\n\n\n\n")   
 
     thing = criteria[0]
     print(thing)
     for i in range(len(search_logics)-1):
-        print(search_logics[i],"LOL", criteria[i+1])
-        if(search_logics[i] == "OR"):
-            thing = or_(thing,criteria[i+1])
+        print(search_logics[i], "LOL", criteria[i+1])
+        if (search_logics[i] == "OR"):
+            thing = or_(thing, criteria[i+1])
         else:
-            thing = and_(thing,criteria[i+1])
+            thing = and_(thing, criteria[i+1])
 
     query = query.filter(thing)
- 
-    print(query.statement.compile(dialect=engine.dialect, compile_kwargs={"literal_binds": True}))
 
+    print(f"SQL Query: {query.statement.compile(dialect=engine.dialect, compile_kwargs={'literal_binds': True})}")
 
     # Execute query and get results
     results = query.all()
     tableHeader = []
     tableValues = []
     for row in results:
-        rowValues = []
-        for model_instance in row:
-            model_class = type(model_instance)
-            table_name = model_class.__table__.name
-            model_columns = inspect(model_class).columns
-            for column in model_columns:
-                value = getattr(model_instance, column.name)
-                if f"{table_name.title()}.{column.name}" not in tableHeader:
-                    tableHeader.append(f"{table_name.title()}.{column.name}")
-                rowValues.append(value)
-        tableValues.append(rowValues)
+        print(row)      
+        tableValues.append(row)
     # Render the template with the query results
     print(tableHeader, tableValues)
-    return render_template('results.html', results={'header' : tableHeader, 'body' : tableValues})
+    
+    return render_template('results.html', results={'header': columns, 'body': tableValues})
 
 
 if __name__ == '__main__':
     app.run(debug=True)
+
