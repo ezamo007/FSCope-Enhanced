@@ -1,9 +1,13 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Enrollments and Services</title>
+    <meta name="description" content="FSCope is dedicated to facilitating the analysis of homeless services data, including identifying data quality issues, visualizing program performance, and enabling user-friendly querying and reporting.">
+
+    <title>FSCope</title>
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
+
     <style>
       /* Custom CSS for table header */
       .dark-header {
@@ -14,17 +18,26 @@
       body{
         margin-bottom: 50px;
       }li{
-        margin-left: 15px;
-      list-style-type: bullet !important
+        margin-left: 40px;
+        list-style-type: disc !important
       }
+      #button-row{
+        margin-top: 30px;
+        display: flex;
+       justify-content: center;
+      
+       }
+       .btn{
+        margin: 5px;
+       }
       </style>
 
 
 
   </head>
   <body>
-    <div class="container">
-      <h1>About This Project</h1>
+    <section class = "container">
+      <h1>About FSCope</h1>
       <p>
         Welcome to FSCope! This project is dedicated to facilitating the analysis of homeless services data, with a focus on the following three goals:
         <ul>
@@ -43,14 +56,34 @@
 
         <a href= "http://github.com/ezamo007/FSCope-Enhanced">Click here</a> to view the source code on GitHub.
       </p>
-      
+    </section>
+        <section id = "button-row" class = "container">
+
 <a href="/checks" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Data Quality Checks</a>
 <a href="/performance" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
 <a href="/search" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="Beta">Search Data</a>
-    </div>
+        </section>
 
-    <div class="container">
-      <h1>enrollments.csv</h1>
+        <section class = "container">
+          <h1>About Me</h1>
+    <p>
+      My name is Eduardo Zamora. I studied applied mathematics at UC Riverside and know how to do the following:
+      <ul>
+        <li>Clean and visualize data with Python</li>
+        <li>Write SQL Queries</li>
+        <li>Create and Schedule Reports using the BI platform Looker</li>
+        <li>Automate web tasks with Selenium</li>
+        <li>Use Google Workspace APIs to process spreadsheets and manage files</li>
+        <li>Write spreadsheet macros using Google App Script</li>
+        <li>Write Excel formulas and create pivot tables</li>
+        <li>Learn to use new software packages and libraries</li>
+      </ul>
+
+      For more information about me, <a  href="/#">click here</a>.
+    </p>
+  </section>
+  <section class = "container">
+    <h1>enrollments.csv</h1>
       <table class="striped">
         <thead class = "dark-header">
           <tr>
@@ -75,8 +108,8 @@
 
           </tbody>
       </table>
-    </div>
-    <div class="container">
+  </section>
+    <section class="container">
       <h1>services.csv</h1>
       <table class="striped">
         <thead class = "dark-header">
@@ -102,8 +135,8 @@
 
           </tbody>
       </table>
-    </div>
-    <div class="container">
+    </section>
+    <section class="container">
       <h1>notes.csv</h1>
       <table class="striped">
         <thead class = "dark-header">
@@ -129,7 +162,7 @@
 
           </tbody>
       </table>
-    </div>
+    </section>
    
 
 
