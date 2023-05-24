@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='styles.css') }}">  </head>
+  <body>
+    <div class="container" id="cards-container">
+      <div id="intro" class="year-div">
+        <h1>Welcome to the Timeline</h1>
+        <p>This is a timeline showcasing events from 2016 to 2023.</p>
+        
+        <p>
+       
+I studied Applied Mathematics at UC Riverside, and graduated four years ago. There, I learned how to code, write algorithms to solve mathematical problems, and use Python to visualize the solutions.
+
+After graduating, I worked for a learning center named STEMWorld that focused on teaching STEM subjects to home-schooled students. There, I taught classes to various groups of middle-school students in robotics, Python, JavaScript, and chemistry, and occasionally served as a tutor. During the pandemic, one of my tutoring students was struggling to adapt to their school district's transition to online learning. I worked closely with the student's parents, advocate, and IEP team and served as this student's instructor for one year. I taught them high-school level math, history, physics, and English, while regularly meeting with the IEP team and recording progress in SEIS.
+
+In my current role, I analyze data about my agency's programs for data integrity issues, and create custom reports, visualizations, and dashboards to share with management to help them understand program performance, budget spenddowns, and track caseloads. 
+
+I retreive the data from our regional Homeless Management Information System, through a business intelligence (BI) platform called Looker.  It is a front-end used to download information from a SQL database. To efficiently query our data, I developed a web application that merges and organizes information extracted from the database. One part of this application algorithmically calculates key performance indicators (KPIs) for each of our programs.
+
+I create monthly reports on client enrollments, move-ins, and services. I communicate my findings to the team during monthly team meetings and weekly meetings with the directors. I also collaborate with outside organizations, including City of Pasadena, and Los Angeles Homeless Services Authority to submit quarterly program reports.
+        </p>
+      </div>
+    
+        
+        <div class="year-div" id="year-div-2017">
+          <h2>Year 2017</h2>
+          <p>
+            Started my summer internship at Jet Propulsion Laboratory (JPL), where I assisted in cosmological research about the cosmic microwave background and made Python visualizations using Matplotlib.</p>
+          
+            <img src="images/1.jpg" alt="Image 2017" class="image" />
+        </div>
+  
+        <div class="year-div" id="year-div-2018">
+          <h2>Year 2018</h2>
+          <p>Continued my academic studies, focusing on applied mathematics and conducted advanced research in the field of probability and statistics.</p>
+          <img src="images/1.jpg" alt="Image 2018" class="image" />
+        </div>
+  
+        <div class="year-div" id="year-div-2019">
+          <h2>Year 2019</h2>
+          <p>Graduated Magna Cum Laude from the University of California, Riverside with a Bachelor of Science in Applied Mathematics.</p>
+        </div>
+  
+        <div class="year-div" id="year-div-2020">
+          <h2>Year 2020</h2>
+          <p>Started as a STEM Instructor and Curriculum Developer at STEMWorld Pasadena, CA, developing and instructing courses in chemistry, biology, 3D printing, and computer programming.</p>
+          <img src="images/1.jpg" alt="Image 2020" class="image" />
+        </div>
+  
+        <div class="year-div" id="year-div-2021">
+          <h2>Year 2021</h2>
+          <p>Continued role at STEMWorld, leading virtual and in-person web development summer camps, and assisting students with IEPs.</p>
+          <img src="images/1.jpg" alt="Image 2021" class="image" />
+        </div>
+  
+        <div class="year-div" id="year-div-2022">
+          <h2>Year 2022</h2>
+          <p>Began my position as a Data and Quality Assurance Specialist at Union Station Homeless Services, developing a Node.js application and creating dynamic dashboards.</p>
+          <img src="images/1.jpg" alt="Image 2022" class="image" />
+        </div>
+  
+        <div class="year-div" id="year-div-2023">
+          <h2>Year 2023</h2>
+          <p>Presently, I'm still serving at Union Station Homeless Services, where I continue to develop data solutions and improve systems for better insights and improved service delivery.</p>
+          <img src="images/1.jpg" alt="Image 2023" class="image" />
+        </div>
+      </div>
+
+      
+
+
+
+    <div class="container" id="timeline-container">
+      <div id="timeline">
+        
+        <div class="timeline-year" onclick="scrollToYear('year-div-2017')">
+          2017
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2018')">
+          2018
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2019')">
+          2019
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2020')">
+          2020
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2021')">
+          2021
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2022')">
+          2022
+        </div>
+        <div class="timeline-year" onclick="scrollToYear('year-div-2023')">
+          2023
+        </div>
+      </div>
+    </div>
+
+    <script>
+      function scrollToYear(yearId) {
+        const yearDiv = document.getElementById(yearId);
+        if (yearDiv) {
+          const offset = 40; // Adjust this value to set the desired offset
+          const topPosition =
+            yearDiv.getBoundingClientRect().top + window.pageYOffset - offset;
+          window.scrollTo({
+            top: topPosition,
+            behavior: "smooth",
+          });
+        }
+      }
+    </script>
+
+    <script>
+      window.addEventListener("DOMContentLoaded", function () {
+        const timelineYears = document.querySelectorAll(".timeline-year");
+        var yearDivs = document.querySelectorAll(".year-div");
+
+        // Function to set the active timeline year
+        function setActiveTimelineYear() {
+          const scrollPosition =
+            window.pageYOffset || document.documentElement.scrollTop;
+
+          yearDivs.forEach(function (yearDiv) {
+            const yearDivOffsetTop = yearDiv.offsetTop - window.innerHeight / 2;
+            const yearDivOffsetBottom = yearDivOffsetTop + yearDiv.offsetHeight;
+
+            if (
+              scrollPosition >= yearDivOffsetTop &&
+              scrollPosition <= yearDivOffsetBottom
+            ) {
+              const year = yearDiv.getAttribute("id").replace("year-div-", "");
+
+              timelineYears.forEach(function (timelineYear) {
+                if (timelineYear.innerText === year) {
+                  timelineYear.classList.add("active");
+                } else {
+                  timelineYear.classList.remove("active");
+                }
+              });
+            }
+          });
+        }
+
+        // Set active timeline year on page load
+        setActiveTimelineYear();
+
+        // Set active timeline year on scroll
+        window.addEventListener("scroll", setActiveTimelineYear, {
+          passive: true,
+          capture: true,
+        });
+
+        // Initialize ScrollMagic controller
+        var controller = new ScrollMagic.Controller();
+
+        // Scroll the year-div elements into view
+        var yearDivs = document.querySelectorAll(".year-div");
+        yearDivs.forEach(function (yearDiv) {
+          var scene = new ScrollMagic.Scene({
+            triggerElement: yearDiv,
+            triggerHook: 1, // Set the triggerHook to 1 (element completely in view)
+          })
+            .setClassToggle(yearDiv, "fade-in")
+            .addTo(controller);
+        });
+      });
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/ScrollMagic/2.0.8/ScrollMagic.min.js"></script>
+  </body>
+</html>

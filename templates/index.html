@@ -15,8 +15,12 @@
         color: #fff;
         font-weight: bold;
       }
+section{
+  max-width: 100%;
+}
       body{
         margin-bottom: 50px;
+        overflow-x: scroll;
       }li{
         margin-left: 40px;
         list-style-type: disc !important
@@ -30,6 +34,22 @@
        .btn{
         margin: 5px;
        }
+       table{
+        max-width: 100%;
+       }
+       
+        /* Media query for small screens */
+
+        @media screen and (max-width: 960px) {
+    p, li {
+      font-size: 16px;
+    }}
+
+  @media screen and (max-width: 768px) {
+    p, li {
+      font-size: 17px;
+    }
+  }
       </style>
 
 
@@ -39,20 +59,20 @@
     <section class = "container">
       <h1>About FSCope</h1>
       <p>
-        Welcome to FSCope! This project is dedicated to facilitating the analysis of homeless services data, with a focus on the following three goals:
+        Welcome to FSCope! This project is dedicated to facilitating the analysis of homeless services data, with a focus on the following three goals: </p>
         <ul>
           <li>Identifying Data Quality Issues</li>
           <li>Visualizing Program Performance</li>
           <li>Enabling User-Friendly Querying/Reporting</li>
         </ul>
-    
+    <p>
     My original project, was written in Node.js and stored data in JSON files. This "enhanced" implementation uses Python and stores data in an SQLite database.
     The data used for this project is fictional and is imported from CSV-formatted spreadsheets, whose contents are shown below.
         
       </p>
       <p>
         
-        The search page allows you to filter information from this database, and select columns to view. In the Python backend, this form information is converted into a SQL query, which is executed using SQLAlchemy, and the results are formatted into Jinja2 templates using Flask.
+        The search page allows you to filter information from this database, and select columns to view. In the Python backend, this form information is converted into a SQL query, which is executed using SQLAlchemy, and the results are formatted into Jinja2 templates, rendered using Flask.
 
         <a href= "http://github.com/ezamo007/FSCope-Enhanced">Click here</a> to view the source code on GitHub.
       </p>
@@ -67,7 +87,7 @@
         <section class = "container">
           <h1>About Me</h1>
     <p>
-      My name is Eduardo Zamora. I studied applied mathematics at UC Riverside and know how to do the following:
+      My name is Eduardo Zamora. I studied applied mathematics at UC Riverside and know how to do the following:</p>
       <ul>
         <li>Clean and visualize data with Python</li>
         <li>Write SQL Queries</li>
@@ -78,7 +98,7 @@
         <li>Write Excel formulas and create pivot tables</li>
         <li>Learn to use new software packages and libraries</li>
       </ul>
-
+<p>
       For more information about me, <a  href="/#">click here</a>.
     </p>
   </section>

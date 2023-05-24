@@ -175,6 +175,11 @@ def search_results():
     
     return render_template('results.html', results={'header': columns, 'body': tableValues})
 
+@app.route('/me')
+def me():
+    return render_template('me/index.html')
+
+
 
 if __name__ == '__main__':
     app.run(debug=True)
