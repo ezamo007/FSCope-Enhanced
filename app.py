@@ -1,4 +1,5 @@
 from jinja2 import Environment
+import csv
 from flask import Flask, render_template, request
 from flask_material import Material
 from database import db, init_db, Household, Client, Enrollment, Service
@@ -30,15 +31,25 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 # Define the app routes
-
-
 @app.route('/')
-def index():
-    enrollments = Enrollment.query.all()
-    services = Service.query.all()
-    clients = Client.query.all()
+def display_csv():
+    # Create spreadsheet object.
+    spreadsheetData = {}
 
-    return render_template('index.html', enrollments=enrollments, services=services, clients=clients)
+    # Read the CSV file
+    with open('data/enrollments.csv', 'r') as file:
+        csv_data = csv.reader(file)
+        spreadsheetData["enrollments"] = list(csv_data)
+    with open('data/notes.csv', 'r') as file:
+            csv_data = csv.reader(file)
+            spreadsheetData["notes"] = list(csv_data)
+    with open('data/services.csv', 'r') as file:
+            csv_data = csv.reader(file)
+            spreadsheetData["services"] = list(csv_data)
+
+    # Render the HTML template and pass the CSV data
+    return render_template('index.html', spreadsheetData = spreadsheetData)
+
 
 
 @app.route('/search', methods=['GET', 'POST'])

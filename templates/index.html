@@ -4,75 +4,142 @@
     <title>Enrollments and Services</title>
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <style>
+      /* Custom CSS for table header */
+      .dark-header {
+        background-color: #777;
+        color: #fff;
+        font-weight: bold;
+      }
+      body{
+        margin-bottom: 50px;
+      }li{
+        margin-left: 15px;
+      list-style-type: bullet !important
+      }
+      </style>
+
+
+
   </head>
   <body>
     <div class="container">
-      <h1><a href="/search">Search.</a></h1>
-      <h1>Enrollments</h1>
+      <h1>About This Project</h1>
+      <p>
+        Welcome to FSCope! This project is dedicated to facilitating the analysis of homeless services data, with a focus on the following three goals:
+        <ul>
+          <li>Identifying Data Quality Issues</li>
+          <li>Visualizing Program Performance</li>
+          <li>Enabling User-Friendly Querying/Reporting</li>
+        </ul>
+    
+    My original project, was written in Node.js and stored data in JSON files. This "enhanced" implementation uses Python and stores data in an SQLite database.
+    The data used for this project is fictional and is imported from CSV-formatted spreadsheets, whose contents are shown below.
+        
+      </p>
+      <p>
+        
+        The search page allows you to filter information from this database, and select columns to view. In the Python backend, this form information is converted into a SQL query, which is executed using SQLAlchemy, and the results are formatted into Jinja2 templates using Flask.
+
+        <a href= "http://github.com/ezamo007/FSCope-Enhanced">Click here</a> to view the source code on GitHub.
+      </p>
+      
+<a href="/checks" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Data Quality Checks</a>
+<a href="/performance" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
+<a href="/search" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="Beta">Search Data</a>
+    </div>
+
+    <div class="container">
+      <h1>enrollments.csv</h1>
       <table class="striped">
-        <thead>
+        <thead class = "dark-header">
           <tr>
-            <th>Client ID</th>
-            <th>Program Name</th>
-            <th>Entry Date</th>
-            <th>Exit Date</th>
+            {% for cell in spreadsheetData.enrollments[0] %}
+          
+            <td>{{cell}}</td>
+            {%endfor%}
           </tr>
-        </thead>
-        <tbody>
-          {% for enrollment in enrollments %}
-          <tr>
-            <td>{{ enrollment.client_id }}</td>
-            <td>{{ enrollment.program_name }}</td>
-            <td>{{ enrollment.entry_date.strftime('%m/%d/%Y') }}</td>
-            {% if enrollment.exit_date %}
-            <td>{{ enrollment.exit_date.strftime('%m/%d/%Y') }}</td>
-            {% else %}
-            <td></td>
-            {% endif %}
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <h1>Services</h1>
-      <table class="striped">
-        <thead>
-          <tr>
-            <th>Service Name</th>
-            <th>Service Amount</th>
-            <th>Start Date</th>
-            <th>End Date</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for service in services %}
-          <tr>
-            <td>{{ service.service_name }}</td>
-            <td>{{ service.service_amount }}</td>
-            <td>{{ service.start_date.strftime('%m/%d/%Y') }}</td>
-            <td>{{ service.end_date.strftime('%m/%d/%Y') }}</td>         
-          </tr>
-          {% endfor %}
-        </tbody>
-      </table>
-      <h1>Clients</h1>
-      <table class="striped">
-        <thead>
-          <tr>
-            <th>Client Name</th>
-            <th>Household ID</th>
-            <th>Client ID</th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for client in clients %}
-          <tr>
-            <td>{{ client.client_name }}</td>
-            <td>{{ client.household_id }}</td>
-            <td>{{ client.client_id }}</td>
-          </tr>
-          {% endfor %}
-        </tbody>
+          </thead>
+
+          <tbody>
+            {% for row in spreadsheetData.enrollments[1:] %}
+
+            <tr>
+            
+                  {% for cell in row%}
+                
+                  <td>{{cell}}</td>
+                  {%endfor%}
+            </tr>
+            {%endfor%}
+
+          </tbody>
       </table>
     </div>
+    <div class="container">
+      <h1>services.csv</h1>
+      <table class="striped">
+        <thead class = "dark-header">
+          <tr>
+            {% for cell in spreadsheetData.services[0] %}
+          
+            <td>{{cell}}</td>
+            {%endfor%}
+          </tr>
+          </thead>
+
+          <tbody>
+            {% for row in spreadsheetData.services[1:] %}
+
+            <tr>
+            
+                  {% for cell in row%}
+                
+                  <td>{{cell}}</td>
+                  {%endfor%}
+            </tr>
+            {%endfor%}
+
+          </tbody>
+      </table>
+    </div>
+    <div class="container">
+      <h1>notes.csv</h1>
+      <table class="striped">
+        <thead class = "dark-header">
+          <tr>
+            {% for cell in spreadsheetData.notes[0] %}
+          
+            <td>{{cell}}</td>
+            {%endfor%}
+          </tr>
+          </thead>
+
+          <tbody>
+            {% for row in spreadsheetData.notes[1:] %}
+
+            <tr>
+            
+                  {% for cell in row%}
+                
+                  <td>{{cell}}</td>
+                  {%endfor%}
+            </tr>
+            {%endfor%}
+
+          </tbody>
+      </table>
+    </div>
+   
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    var tooltips = document.querySelectorAll('.tooltipped');
+    M.Tooltip.init(tooltips);
+  });
+</script>
   </body>
 </html>
