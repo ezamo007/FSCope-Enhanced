@@ -1,2 +1,3 @@
 - Table sorting with table-sort.js
 - Navigation links.
+- Add favicon / viewport to all pages.

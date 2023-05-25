@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Enrollments and Services</title>
+    <title>Search</title>
     <!-- Materialize CSS -->
     <link
       rel="stylesheet"
@@ -9,10 +9,12 @@
     />
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css') }}">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
+
   </head>
   <body>
     <div class="container">
-      <h1 class = "title"><b>Search</b><sup>Beta</sup></h1>
+      <h1 class = "title"><b>FSCope</b><sup>Beta</sup></h1>
       <form action="/results" method="POST">
         <div class="search-form">
           <div id="search-rows">
