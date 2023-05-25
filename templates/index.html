@@ -10,6 +10,21 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
 
     <style>
+
+      #aboutMeDiv{
+        display: flex;
+        flex-direction: row;
+      }
+
+      #aboutMeImage{
+        width:150px;
+        margin-right: 75px;
+        transform: translateY(50%);     
+        border: 4px purple solid;
+        padding: 10px;
+        border-radius: 50%;
+    }
+        
       /* Custom CSS for table header */
       .dark-header {
         background-color: #777;
@@ -52,6 +67,20 @@
     p, li {
       font-size: 17px;
     }
+    #aboutMeDiv{
+      flex-direction: column;
+      align-items: center; /* Add this line to center the image vertically */
+    }
+    #aboutMeImage{
+      margin:0;
+      width:150px;
+      transform: translateY(0%);  
+
+
+border: 4px purple solid;
+      padding: 10px;
+      border-radius: 50%;
+  }
   }
       </style>
 
@@ -86,9 +115,16 @@
 <a href="/#" class="waves-effect waves-light btn  tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
 <a href="/search" class="waves-effect waves-light btn" >Search Data</a>
         </section>
-
         <section class = "container">
-          <h1>About Me</h1>
+        <h1>About Me</h1>
+      </section>
+
+    <section class = "container" id = "aboutMeDiv">
+      
+      <div>
+        <img id="aboutMeImage" src="{{ url_for('static', filename='me/favicon.ico') }}" alt="Mii.">
+      </div>
+      <div id="aboutMeText">
     <p>
       My name is Eduardo Zamora. I studied applied mathematics at UC Riverside and know how to do the following:</p>
       <ul>
@@ -101,10 +137,13 @@
         <li>Write Excel formulas and create pivot tables</li>
         <li>Learn to use new software packages and libraries</li>
       </ul>
-<p>
-      For more information about me, <a  href="/#">click here</a>.
-    </p>
+      <p>
+        For more information about me, <a  href="/#">click here</a>.
+      </p>
+    </div>
   </section>
+
+
   <section class = "container">
     <h1>enrollments.csv</h1>
       <table class="striped">
