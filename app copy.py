@@ -120,16 +120,14 @@ def search_results():
         'Service.service_amount': Service.service_amount,
     }
 
-    # Convert list of strings to a list of attributes:
+    # Convert your list of strings to a list of attributes:
     attr_list = [attr_map[attr] for attr in columns]
 
-    # Use this list in query:
+    # # Now use this list in your query:
     query = query.with_entities(*attr_list) 
 
     
     criteria = []
-
-    criteria_ands = []
 
     for i in range(len(search_fields)):
         objectName, field = search_fields[i].split(".")
@@ -162,16 +160,16 @@ def search_results():
 
     thing = criteria[0]
     
+    
     for i in range(len(search_logics)-1):
        # print(search_logics[i], "LOL", criteria[i+1])
-        if (search_logics[i] == "AND"):
-            thing = and_(thing, criteria[i+1])
+        if (search_logics[i] == "OR"):
+            thing = or_(thing, criteria[i+1])
         else:
-            criteria_ands.append(thing)
-            thing = criteria[i+1]
-            
-    criteria_ands.append(thing)
-    query = query.filter(or_(*criteria_ands))
+            thing = and_(thing, criteria[i+1])
+
+
+    query = query.filter(thing)
 
 
 

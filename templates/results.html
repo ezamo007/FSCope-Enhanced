@@ -9,13 +9,15 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css') }}">
+
   </head>
   <body>
     <div class="container">
       <h1><a href="/search">Search</a></h1>
       {% if results.header %}
-      <table class="highlight">
-        <thead>
+      <table class="">
+        <thead class="dark-header">
           <tr>
             {% for column in results.header %}
             <th>{{ column }}</th>

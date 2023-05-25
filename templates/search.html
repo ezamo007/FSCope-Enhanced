@@ -12,7 +12,7 @@
   </head>
   <body>
     <div class="container">
-      <h1><b>Search (beta)</b></h1>
+      <h1 class = "title"><b>Search</b><sup>Beta</sup></h1>
       <form action="/results" method="POST">
         <div class="search-form">
           <div id="search-rows">
@@ -21,12 +21,8 @@
                 <select name="search-field">
                   <option value="Client.client_name">Client Name</option>
                   <option value="Enrollment.program_name" selected>Program Name</option>
-                  <option value="Enrolment.entry_date">
-                    Program Entry Date
-                  </option>
-                  <option value="Enrollment.exit_date">
-                    Program Exit Date
-                  </option>
+                  <option value="Enrollment.entry_date">Program Entry Date</option>
+                  <option value="Enrollment.exit_date">Program Exit Date</option>
                   <option value="Service.service_name">Service Name</option>
                   <option value="Service.service_amount">Service Amount</option>
                   <option value="Service.start_date">Service Start Date</option>
@@ -68,6 +64,7 @@
                       class="filled-in service-checkbox"
                       name="columns"
                       value="Client.client_name"
+                      checked
                     />
                     <span>Name</span>
                   </label>
@@ -95,6 +92,7 @@
                       class="filled-in service-checkbox"
                       name="columns"
                       value="Enrollment.program_name"
+                      checked
                     />
                     <span>Program Name</span>
                   </label>
@@ -213,7 +211,7 @@
                 <select name="search-field">
                   <option value="Client.client_name">Client Name</option>
                   <option value="Enrollment.program_name">Program Name</option>
-                  <option value="Enrolment.entry_date">Program Entry Date</option>
+                  <option value="Enrollment.entry_date">Program Entry Date</option>
                   <option value="Enrollment.exit_date">Program Exit Date</option>
                   <option value="Service.service_name">Service Name</option>
                   <option value="Service.service_amount">Service Amount</option>
@@ -245,7 +243,8 @@
   `;
         document.querySelector("#search-rows").appendChild(newRow);
         M.FormSelect.init(newRow.querySelectorAll("select"));
-        newRow.addEventListener("change", function () {
+
+        newRow.querySelector('[name="search-logic"]').addEventListener("change", function () {
           var searchLogic = newRow.querySelector('[name="search-logic"]');
           if (searchLogic.value == "DELETE") {
             searchLogic.parentNode.parentNode.parentNode.remove();

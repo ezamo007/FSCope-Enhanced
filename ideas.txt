@@ -1,0 +1,2 @@
+- Table sorting with table-sort.js
+- Navigation links.

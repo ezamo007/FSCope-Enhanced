@@ -16,12 +16,12 @@
         color: #fff;
         font-weight: bold;
       }
-section{
-  max-width: 100%;
-}
+      section{
+        max-width: 100%;
+      }
       body{
         margin-bottom: 50px;
-        overflow-x: scroll;
+        overflow-x: hidden;
       }li{
         margin-left: 40px;
         list-style-type: disc !important
@@ -38,7 +38,9 @@ section{
        table{
         max-width: 100%;
        }
-       
+       section{
+        overflow-x:auto;
+       }
         /* Media query for small screens */
 
         @media screen and (max-width: 960px) {
@@ -82,7 +84,7 @@ section{
 
 <a href="/checks" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Data Quality Checks</a>
 <a href="/performance" class="waves-effect waves-light btn disabled tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
-<a href="/search" class="waves-effect waves-light btn tooltipped" data-position="bottom" data-tooltip="Beta">Search Data</a>
+<a href="/search" class="waves-effect waves-light btn" >Search Data</a>
         </section>
 
         <section class = "container">
