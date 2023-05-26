@@ -9,10 +9,8 @@ from sqlalchemy.orm import sessionmaker
 app = Flask(__name__, static_folder='static')
 Material(app)
 
-
 def get_attr(obj, attr):
     return getattr(obj, attr)
-
 
 env = Environment()
 
