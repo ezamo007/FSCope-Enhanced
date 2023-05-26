@@ -33,8 +33,14 @@ def findDuplicateEnrollments():
                 # Overlapping date ranges found
                 error = {
                     'client_name': client1.client_name,
+                    'client_id': client1.client_id,
+                    'program_name': enrollment1.program_name,
                     'enrollment_id_1': enrollment1.enrollment_id,
-                    'enrollment_id_2': enrollment2.enrollment_id
+                    'entry_date_1': enrollment1.entry_date,
+                    'exit_date_1': enrollment1.exit_date if enrollment1.exit_date is not None else "",
+                    'enrollment_id_2': enrollment2.enrollment_id,
+                    'entry_date_2': enrollment2.entry_date,
+                    'exit_date_2': enrollment2.exit_date if enrollment2.exit_date is not None else ""
                 }
                 errors.append(error)
     return errors
