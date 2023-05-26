@@ -29,6 +29,9 @@ h1{
     height:0.65em;
     vertical-align: -0.05em;
   }
+   li{
+    overflow-x: auto;
+   }
   a{
     color: inherit;
     text-decoration: none;
