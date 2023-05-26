@@ -3,6 +3,7 @@
     flex-direction: row;
   }
 
+  
   #aboutMeImage{
     width:150px;
     margin-right: 75px;
@@ -26,7 +27,9 @@
   }
 }
 
-
+h1{
+  white-space: nowrap;
+}
   .h1Logo{
     height:0.65em;
     vertical-align: -0.05em;
