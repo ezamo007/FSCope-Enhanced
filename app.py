@@ -172,10 +172,6 @@ def search_results():
     criteria_ands.append(thing)
     query = query.filter(or_(*criteria_ands))
 
-
-
-    
-
     commonNamesMap = {
             'Enrollment.program_name': "Program Name",  
             'Enrollment.entry_date': "Program Entry Date",  
@@ -208,7 +204,7 @@ def checks():
     allErrors = {}
     # Retrieve all client enrollments
     allErrors["Duplicate Enrollments"] = findDuplicateEnrollments()
-    print(allErrors)
+    allErrors["Duplicate Enrollments Again"] = findDuplicateEnrollments()
     return render_template('checks.html', allErrors = allErrors)
 
 if __name__ == '__main__':
