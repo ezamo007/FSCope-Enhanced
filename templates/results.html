@@ -9,13 +9,18 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
     />
-    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/search.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tables.css') }}">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
 
   </head>
   <body>
+    <div class="container" id = "headerBar">
+      <a href = "/search"><h1><img class = "h1Logo arrow" src="{{ url_for('static', filename='media/leftArrowinCircle.png') }}" alt="Scope target logo."></h1></a>
+      <a href = "/"><h1 class = "title">FSC<img class = "h1Logo" src="{{ url_for('static', filename='logo.png') }}" alt="Scope target logo.">pe</h1></a>
+      <div class="spacer"></div> 
+    </div>
     <div class="container">
-      <h1><a href="/search">Search</a></h1>
+    </section>
       {% if results.header %}
       <table class="">
         <thead class="dark-header">

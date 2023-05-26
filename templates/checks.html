@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Data Checks</title>
+  <!-- Import Materialize CSS styles -->
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"
+  />
+  <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/tables.css') }}">
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
+</head>
+<body>
+  <div class="container">
+    <h1>Data Checks<sup>Beta</sup></h1>
+
+    <ul class="collapsible">
+      {% for error_type, error_data in allErrors.items() %}
+      <li>
+        <div class="collapsible-header">{{ error_type }}</div>
+        <div class="collapsible-body">
+          <table class="striped">
+            <thead class = "dark-header">
+    
+              <tr>
+                <th>Client Name</th>
+                <th>Enrollment ID 1</th>
+                <th>Enrollment ID 2</th>
+              </tr>
+            </thead>
+            <tbody>
+              {% for item in error_data %}
+              <tr>
+                <td>{{ item.client_name }}</td>
+                <td>{{ item.enrollment_id_1 }}</td>
+                <td>{{ item.enrollment_id_2 }}</td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+      </li>
+      {% endfor %}
+    </ul>
+  </div>
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+  <script>
+    document.addEventListener('DOMContentLoaded', function() {
+      var elems = document.querySelectorAll('.collapsible');
+      var instances = M.Collapsible.init(elems);
+    });
+  </script>
+</body>
+</html>

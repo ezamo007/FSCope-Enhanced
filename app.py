@@ -1,4 +1,5 @@
 from jinja2 import Environment
+from data_checks.enrollmentDateChecks import findDuplicateEnrollments
 import csv
 from flask import Flask, render_template, request, jsonify
 from flask_material import Material
@@ -202,59 +203,15 @@ def search_results():
 
 @app.route('/me')
 def me():
-    return render_template('me/index.html')
+    return render_template('me.html')
 
 @app.route('/checks')
 def checks():
+    allErrors = {}
     # Retrieve all client enrollments
-    
-    #query = db.session.query(Household, Client, Enrollment).join(Client, Household.household_id == Client.household_id).join(Enrollment, Client.client_id == Enrollment.client_id)
-    #enrollments = query.all()
-  
-    query = db.session.query(Enrollment)
-    enrollments = query.all()
-
-    errors = []
-
-    #Show these:
-    for result in enrollments:
-        print(result.client_id)
-    
-    
-    for i in range(len(enrollments)):
-        for j in range(i + 1, len(enrollments)):
-            enrollment1 = enrollments[i]
-            enrollment2 = enrollments[j]
-
-            print(enrollment1)
-            if (
-                enrollment1.client_id == enrollment2.client_id
-                and enrollment1.program_name == enrollment2.program_name
-                and (
-                    (
-                        enrollment1.entry_date <= enrollment2.entry_date
-                        and (enrollment1.exit_date is None or enrollment2.exit_date is None or enrollment1.exit_date >= enrollment2.entry_date)
-                    )
-                    or (
-                        enrollment1.entry_date <= enrollment2.exit_date <= enrollment1.exit_date
-                    )
-                )
-            ):
-                # Overlapping date ranges found
-                error = {
-                    'client_id': enrollment1.client_id,
-                    'enrollment_id_1': enrollment1.enrollment_id,
-                    'enrollment_id_2': enrollment2.enrollment_id
-                }
-                errors.append(error)
-
-    if errors:
-        print(jsonify({'errors': errors}), 400)
-        return(jsonify({'errors': errors}), 400)
-
-    else:
-        return(jsonify({'message': 'No enrollment errors found.'}), 200)
-
+    allErrors["Duplicate Enrollments"] = findDuplicateEnrollments()
+    print(allErrors)
+    return render_template('checks.html', allErrors = allErrors)
 
 if __name__ == '__main__':
     app.run(debug=True)

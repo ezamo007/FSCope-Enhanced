@@ -7,89 +7,13 @@
     <!-- Materialize CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/index.css') }}">
+
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-
-    <style>
-
-      #aboutMeDiv{
-        display: flex;
-        flex-direction: row;
-      }
-
-      #aboutMeImage{
-        width:150px;
-        margin-right: 75px;
-        transform: translateY(50%);     
-        border: 4px purple solid;
-        padding: 10px;
-        border-radius: 50%;
-    }
-        
-      /* Custom CSS for table header */
-      .dark-header {
-        background-color: #777;
-        color: #fff;
-        font-weight: bold;
-      }
-      section{
-        max-width: 100%;
-      }
-      body{
-        margin-bottom: 50px;
-        overflow-x: hidden;
-      }li{
-        margin-left: 40px;
-        list-style-type: disc !important
-      }
-      #button-row{
-        margin-top: 30px;
-        display: flex;
-       justify-content: center;
-      
-       }
-       .btn{
-        margin: 5px;
-       }
-       table{
-        max-width: 100%;
-       }
-       section{
-        overflow-x:auto;
-       }
-        /* Media query for small screens */
-
-        @media screen and (max-width: 960px) {
-    p, li {
-      font-size: 16px;
-    }}
-
-  @media screen and (max-width: 768px) {
-    p, li {
-      font-size: 17px;
-    }
-    #aboutMeDiv{
-      flex-direction: column;
-      align-items: center; /* Add this line to center the image vertically */
-    }
-    #aboutMeImage{
-      margin:0;
-      width:150px;
-      transform: translateY(0%);  
-
-
-border: 4px purple solid;
-      padding: 10px;
-      border-radius: 50%;
-  }
-  }
-      </style>
-
-
-
   </head>
   <body>
     <section class = "container">
-      <h1>About FSCope</h1>
+      <h1>About FSC<img class = "h1Logo" src="{{ url_for('static', filename='logo.png') }}" alt="Scope target logo.">pe</h1>
       <p>
         Welcome to FSCope! This project is dedicated to facilitating the analysis of homeless services data, with a focus on the following three goals: </p>
         <ul>
@@ -111,8 +35,9 @@ border: 4px purple solid;
     </section>
         <section id = "button-row" class = "container">
 
-<a href="/checks" class="waves-effect waves-light btn  tooltipped" data-tooltip="Currently Checks for Overlapping Enrollments" data-position="bottom">Data Quality Checks (Alpha)</a>
-<a href="/#" class="waves-effect waves-light btn  tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
+<a href="/checks" class="waves-effect waves-light btn  tooltipped" data-tooltip="Beta" data-position="bottom">Data Quality Checks</a>
+<a href="/#" class="grey lighten-1
+ waves-effect waves-light btn  tooltipped" data-position="bottom" data-tooltip="Coming Soon">Program Performance</a>
 <a href="/search" class="waves-effect waves-light btn" >Search Data</a>
         </section>
         <section class = "container">
@@ -122,7 +47,7 @@ border: 4px purple solid;
     <section class = "container" id = "aboutMeDiv">
       
       <div>
-        <img id="aboutMeImage" src="{{ url_for('static', filename='me/favicon.ico') }}" alt="Mii.">
+        <a href = "https://www.linkedin.com/in/eduardo-zamora-2a9b45132/"><img id="aboutMeImage" src="{{ url_for('static', filename='me/media/mii.png') }}" alt="Mii."></a>
       </div>
       <div id="aboutMeText">
     <p>
