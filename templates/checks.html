@@ -26,16 +26,28 @@
     
               <tr>
                 <th>Client Name</th>
+                <th>Client ID</th>
+                <th>Program Name</th>
                 <th>Enrollment ID 1</th>
+                <th>Entry Date</th>
+                <th>Exit Date</th>
                 <th>Enrollment ID 2</th>
+                <th>Entry Date</th>
+                <th>Exit Date</th>
               </tr>
             </thead>
             <tbody>
               {% for item in error_data %}
               <tr>
                 <td>{{ item.client_name }}</td>
+                <td>{{ item.client_id }}</td>
+                <td>{{ item.program_name }}</td>
                 <td>{{ item.enrollment_id_1 }}</td>
+                <td>{{ item.entry_date_1 }}</td>
+                <td>{{ item.exit_date_1 }}</td>
                 <td>{{ item.enrollment_id_2 }}</td>
+                <td>{{ item.entry_date_2 }}</td>
+                <td>{{ item.exit_date_2 }}</td>
               </tr>
               {% endfor %}
             </tbody>
