@@ -8,3 +8,9 @@ Dependencies:
 - flask_material
 
 Created by Eduardo Zamora.
+
+### Acknowledgements
+
+This project utilizes the following third-party libraries:
+
+- [Chart.js](https://www.chartjs.org/) by Chart.js Contributors (Version 4.3.0) - Simple yet flexible JavaScript charting for designers & developers. Licensed under [MIT License](https://opensource.org/licenses/MIT).

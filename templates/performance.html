@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Dashboard with Chart.js</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Import Materialize CSS styles -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/performance.css') }}">
+    <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}" type="image/x-icon" alt="FSCope Logo">
+  </head>
+  <body>
+    <a href = "/"><h1 class = "title">FSC<img class = "h1Logo" src="{{ url_for('static', filename='logo.png') }}" alt="Scope target logo.">pe</h1></a>
+
+    <div class="container">
+        <div class="row" id = "enrollmentDoughnuts">
+            {% for program in program_metrics %}
+            <div class="doughnutContainer col s6 m6 l3">
+                <canvas id="enrollmentWidget{{ loop.index }}" class = "enrollmentDoughnut"></canvas>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            {% for program in program_metrics %}
+            var enrollmentWidget{{ loop.index }} = document.getElementById('enrollmentWidget{{ loop.index }}').getContext('2d');
+            new Chart(enrollmentWidget{{ loop.index }}, {
+                type: 'doughnut',
+                data: {
+                    labels: ['{{program.program_name}}'],
+                    datasets: [{
+                        data: [{{ program.enrollment_size }}, {{ program.max_capacity - program.enrollment_size }}],
+                        backgroundColor: ['rgba(54, 162, 235, 0.8)', 'rgba(211, 211, 211, 0.4)'],
+                        borderWidth: 0
+                    }]
+                },
+                options: {
+                    responsive: false,
+                    cutoutPercentage: 75,
+                    
+                    legend: {
+                        display: true
+                        
+                    },
+                    tooltips: {
+                        enabled: false
+                    }
+                }
+            });
+            {% endfor %}
+        });
+    </script>
+</body>
+</html>

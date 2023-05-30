@@ -1,5 +1,7 @@
 from jinja2 import Environment
-from data_checks.enrollmentDateChecks import findDuplicateEnrollments
+from data_checks.enrollmentDateChecks import find_duplicate_enrollments
+from performance.metrics import get_program_metrics
+
 import csv
 from flask import Flask, render_template, request, jsonify
 from flask_material import Material
@@ -202,10 +204,39 @@ def me():
 @app.route('/checks')
 def checks():
     allErrors = {}
-    # Retrieve all client enrollments
-    allErrors["Duplicate Enrollments"] = findDuplicateEnrollments()
-    allErrors["Duplicate Enrollments Again"] = findDuplicateEnrollments()
+    # Retrieve clients with overlapping enrollments in programs with the same name.
+    allErrors["Duplicate Enrollments"] = find_duplicate_enrollments()
+    allErrors["Duplicate Enrollments Again"] = find_duplicate_enrollments()
     return render_template('checks.html', allErrors = allErrors)
+
+@app.route('/performance')
+def performance():
+    program_metrics = get_program_metrics()
+    print(program_metrics)
+    program_metrics = [
+    {
+        'program_name': 'Program A',
+        'enrollment_size': 3,
+        'max_capacity': 130
+    },
+    {
+        'program_name': 'Program B',
+        'enrollment_size': 4,
+        'max_capacity': 150
+    },
+    {
+        'program_name': 'Program C',
+        'enrollment_size': 40,
+        'max_capacity': 80
+    },
+    {
+        'program_name': 'Program D',
+        'enrollment_size': 90,
+        'max_capacity': 120
+    }]
+
+    return render_template('performance.html', program_metrics = program_metrics)
+
 
 if __name__ == '__main__':
     app.run(debug=True)

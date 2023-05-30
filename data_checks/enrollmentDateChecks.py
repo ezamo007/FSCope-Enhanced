@@ -1,7 +1,7 @@
 from flask import jsonify, render_template
 from database import db, Client, Enrollment
 
-def findDuplicateEnrollments():
+def find_duplicate_enrollments():
     # Retrieve all client enrollments
     query = db.session.query(Enrollment, Client)
     enrollments = query.join(Client, Enrollment.client_id == Client.client_id).all()
@@ -44,3 +44,5 @@ def findDuplicateEnrollments():
                 }
                 errors.append(error)
     return errors
+
+
