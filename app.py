@@ -1,5 +1,7 @@
 from jinja2 import Environment
 from data_checks.enrollmentDateChecks import find_duplicate_enrollments
+from data_checks.serviceAmountChecks import find_members_with_expenses
+
 from performance.metrics import get_program_metrics
 
 import csv
@@ -205,8 +207,15 @@ def me():
 def checks():
     allErrors = {}
     # Retrieve clients with overlapping enrollments in programs with the same name.
-    allErrors["Duplicate Enrollments"] = find_duplicate_enrollments()
-    allErrors["Duplicate Enrollments Again"] = find_duplicate_enrollments()
+
+    allErrors["Duplicate Enrollments"] = {"tableValues" : find_duplicate_enrollments(),
+                                          "headerTitles" : ["Client Name","Client ID","Program Name","Enrollment ID 1","Entry Date", "Exit Date", "Enrollment ID 2","Entry Date", "Exit Date"]}
+
+
+    allErrors["Household Members with Expenses"] =  {"tableValues" : find_members_with_expenses(),
+                                          "headerTitles" : ["Client Name","Client ID","Program Name","Entry Date", "Exit Date", "Service Name","Service Amount", "Start Date", "End Date"]
+    }
+    
     return render_template('checks.html', allErrors = allErrors)
 
 @app.route('/performance')

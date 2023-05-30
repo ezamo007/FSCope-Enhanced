@@ -8,9 +8,7 @@ def find_duplicate_enrollments():
 
     errors = []
 
-    for result in enrollments:
-        print(result.Client.client_name)
-
+    
     for i in range(len(enrollments)):
         for j in range(i + 1, len(enrollments)):
             enrollment1, client1 = enrollments[i]

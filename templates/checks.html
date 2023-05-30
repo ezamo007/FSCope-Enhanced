@@ -23,31 +23,20 @@
         <div class="collapsible-body">
           <table class="striped">
             <thead class = "dark-header">
-    
+              
               <tr>
-                <th>Client Name</th>
-                <th>Client ID</th>
-                <th>Program Name</th>
-                <th>Enrollment ID 1</th>
-                <th>Entry Date</th>
-                <th>Exit Date</th>
-                <th>Enrollment ID 2</th>
-                <th>Entry Date</th>
-                <th>Exit Date</th>
+                {%  for title in error_data.headerTitles %}
+                <th>{{title}}</th>
+                {% endfor %}
               </tr>
             </thead>
             <tbody>
-              {% for item in error_data %}
+              {% for item in error_data.tableValues %}
               <tr>
-                <td>{{ item.client_name }}</td>
-                <td>{{ item.client_id }}</td>
-                <td>{{ item.program_name }}</td>
-                <td>{{ item.enrollment_id_1 }}</td>
-                <td>{{ item.entry_date_1 }}</td>
-                <td>{{ item.exit_date_1 }}</td>
-                <td>{{ item.enrollment_id_2 }}</td>
-                <td>{{ item.entry_date_2 }}</td>
-                <td>{{ item.exit_date_2 }}</td>
+                {% for name, value in item.items() %}
+                <td>{{ value }}</td>
+                {% endfor %}
+
               </tr>
               {% endfor %}
             </tbody>
