@@ -222,28 +222,6 @@ def checks():
 def performance():
     program_metrics = get_program_metrics()
     print(program_metrics)
-    program_metrics = [
-    {
-        'program_name': 'Program A',
-        'enrollment_size': 3,
-        'max_capacity': 130
-    },
-    {
-        'program_name': 'Program B',
-        'enrollment_size': 4,
-        'max_capacity': 150
-    },
-    {
-        'program_name': 'Program C',
-        'enrollment_size': 40,
-        'max_capacity': 80
-    },
-    {
-        'program_name': 'Program D',
-        'enrollment_size': 90,
-        'max_capacity': 120
-    }]
-
     return render_template('performance.html', program_metrics = program_metrics)
 
 

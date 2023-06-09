@@ -3,7 +3,7 @@ from database import db, Client, Enrollment
 import sqlalchemy
 from collections import Counter
 
-def execute_sql_query(query):
+def execute_sql_query(query, params = None):
     """
     Executes the given SQL query and returns the results as a list of lists.
 
@@ -13,7 +13,7 @@ def execute_sql_query(query):
     Returns:
     list: A list of lists representing the query results.
     """
-    results = db.session.execute(sqlalchemy.text(query))
+    results = db.session.execute(sqlalchemy.text(query), params)
     return [list(result) for result in results]
 
 def create_chart_object(counter):
@@ -57,5 +57,49 @@ def count_active_enrollments():
     #TODO: Add details.
     return counter
 
+
+
+def count_active_enrollments(programName, month):
+    """
+    Retrieves details on active enrollments.
+    Prints the results for now.
+    """
+    # SQL Query for Active Enrollments
+    query = """
+    SELECT c.client_name, e.program_name, e.entry_date, e.exit_date
+    FROM Enrollment e
+    JOIN Client c ON e.client_id = c.client_id
+    WHERE e.exit_date IS NULL AND e.hoh = "Yes";
+    """
+
+
+    # Execute the SQL query
+    results = execute_sql_query(query)
+    counter = Counter(item[1] for item in results)
+    #TODO: Add details.
+    return counter
+
+
 def get_program_metrics():
-    return create_chart_object(count_active_enrollments())
+    listOfPrograms = execute_sql_query("""
+    SELECT Distinct e.program_name
+    FROM Enrollment e
+    """)
+
+    fiscalYear = [
+    "2022-07", "2022-08", "2022-09", "2022-10", "2022-11", "2022-12",
+    "2023-01", "2023-02", "2023-03", "2023-04", "2023-05", "2023-06"]
+
+    monthlyProgramSizes = {}
+    for [program] in listOfPrograms:
+        monthlyProgramSizes[program] = []   
+        for month in fiscalYear:
+            month_pattern = f"{month}%"
+            count = execute_sql_query("""
+                SELECT COUNT(*)
+                FROM Enrollment e
+                WHERE  (e.entry_date <= :month OR  e.entry_date LIKE :month_pattern) and (e.exit_date IS NULL OR e.exit_date >= :month OR e.exit_date LIKE :month_pattern) AND e.hoh = "Yes" AND e.program_name LIKE :program;
+                """, {"month": month, "program": program, "month_pattern":month_pattern})
+            monthlyProgramSizes[program].extend(count[0])
+
+    return {"month_list": fiscalYear, "monthlyProgramSizes": monthlyProgramSizes}
